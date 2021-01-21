@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Web-applications</title>
+    <script src="js/jquery.js"></script>
+</head>
+
+<body>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="insertdata">
+
+                <form action="/lab5java_war_exploded/add" method="post">
+                    <fieldset>
+
+                        <legend><span id="red1">*</span> Student Name</legend>
+                        <hr>
+                        <input type="text" class="form-control" name="personName" id="name" placeholder="Type a name" onkeyup="checkParams()">
+
+                        <legend><span id="red2">*</span> Student Math Score</legend>
+                        <hr>
+                        <input type="number" class="form-control raz" name="personMathScore" id="MathScore" placeholder="Type a Score [1,5]" onkeyup="checkParams()">
+
+                        <legend><span id="red3">*</span> Student Physics Score</legend>
+                        <hr>
+                        <input type="number" class="form-control raz" name="personPhysScore" id="PhysicsScore" placeholder="Type a Score [1,5]" onkeyup="checkParams()">
+
+                        <legend><span id="red4">*</span> Student English Score</legend>
+                        <hr>
+                        <input type="number" class="form-control raz" name="personEngScore" id="EnglishScore" placeholder="Type a Score [1,5]" onkeyup="checkParams()">
+
+                        <br>
+                        <button type="submit" id="create" class="btn btn-success" disabled>Add new cell</button>
+
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <form action="/lab5java_war_exploded/table" method="get">
+        <fieldset>
+            <button  type="submit" id="" class="btn btn-warning">Open Table</button>
+        </fieldset>
+    </form>
+</section>
+<br>
+<div class="hrdiv"></div>
+<br>
+
+
+<script>
+    var boolean = false;
+    let xmlContent = '';
+    let tableStudents = document.getElementById('students');
+    fetch('students.xml').then((response)=>{
+        response.text().then((xml)=>{
+            xmlContent = xml;
+            let parser = new DOMParser();
+            let xmlDom = parser.parseFromString(xmlContent,'application/xml');
+            let students = xmlDom.querySelectorAll('student');
+
+            students.forEach(studentXmlNode=>{
+                let row = document.createElement('tr');
+
+                let td = document.createElement('td');
+                td.innerText = studentXmlNode.children[0].innerHTML;
+                row.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = studentXmlNode.children[1].innerHTML;
+                row.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = studentXmlNode.children[2].innerHTML;
+                row.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = studentXmlNode.children[3].innerHTML;
+                row.appendChild(td);
+
+                let button = document.createElement('button');
+                button.innerText = "Delete";
+                button.className = "btn btn-danger righbut deleteDep";
+                row.appendChild(button);
+
+                tableStudents.children[1].appendChild(row);
+            })
+        });
+    });
+
+
+    let color_button= document.getElementById('create');
+
+    function checkParams() {
+        var name = $('#name').val();
+        var MathScore = $('#MathScore').val();
+        var PhysicsScore = $('#PhysicsScore').val();
+        var EnglishScore = $('#EnglishScore').val();
+
+        if(name.length != 0 && name.length <=30){
+            $('#red1').attr('style','color: white;');
+        }
+        else{
+            $('.red1').attr('style','color:red;');
+        }
+        if(MathScore.length != 0 && MathScore>=1 && MathScore<=5){
+            $('#red2').attr('style','color: white;');
+        }
+        else{
+            $('.red2').attr('style','color:red;');
+        }
+        if(PhysicsScore.length != 0 && PhysicsScore >=1 && PhysicsScore <=5){
+            $('#red3').attr('style','color: white;');
+        }
+        else{
+            $('.red3').attr('style','color:red;');
+        }
+        if(EnglishScore.length !=0 && EnglishScore >= 1 && EnglishScore <= 5){
+            $('#red4').attr('style','color: white;');
+        }
+        else{
+            $('.red4').attr('style','color:red;');
+        }
+
+        if(name.length != 0 && MathScore.length != 0 && PhysicsScore.length != 0 && EnglishScore.length !=0 && name.length <=30 && MathScore>=1 && PhysicsScore >=1 && EnglishScore >= 1 && MathScore<=5 && PhysicsScore <=5 && EnglishScore <= 5){
+            $('#create').removeAttr('disabled');
+
+        }
+        else {
+            $('#create').attr('disabled', 'disabled');
+        }
+    }
+
+
+
+</script>
+
+</body>
+
+</html>

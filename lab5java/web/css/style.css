@@ -1,0 +1,35 @@
+body{
+    margin: 30px;
+}
+.insertdata{
+    margin: 0 auto;
+}
+
+.raz { 
+    -moz-appearance: textfield;
+  }
+.raz::-webkit-inner-spin-button { 
+    display: none;
+}
+
+.tablesect{
+    margin: 0 auto;
+}
+hr{
+    display:block;
+    height:10px; 
+}
+
+.hrdiv{
+    height: 1px;
+    background-color:black;
+}
+
+.righbut{
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+#red1 ,#red2,#red3 , #red4{
+    color:red;
+}
