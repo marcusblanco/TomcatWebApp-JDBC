@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class JavaMySql {
 
-   static String url = "jdbc:mysql://localhost:3306/studentsdb?autoReconnect=true&useSSL=false";
-   static String username = "root";
-   static String password = "G$3LKGNl?9p%JBQ";
+   static String url = "url";
+   static String username = "uname";
+   static String password = "uPSS";
 
     public static int JAVASQLLength() {
         int length = 0;
